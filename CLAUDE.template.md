@@ -12,6 +12,45 @@ _TODO: Describe what this project does and who it serves._
 
 ---
 
+## Deployment context & audience
+
+Who this project serves, where it runs, and who operates it. Claude uses this to make the right tradeoffs — a regulated enterprise SaaS has different defaults than an internal dev tool or an open-source CLI. Read this alongside the project mission before making any design or UX decision.
+
+### Environment
+
+Where the project lives and at what scale it operates. Affects decisions around multi-tenancy, data isolation, latency, availability, and compliance.
+
+- _Hosting: cloud (which provider / region), on-prem, hybrid, or local-only_
+- _Deployment model: SaaS, self-hosted, internal tool, CLI, embedded, etc._
+- _Scale: single user, small team, departmental, enterprise, public internet_
+- _Data sensitivity: public, internal, PII, regulated (HIPAA, GDPR, SOC2, etc.)_
+
+### Owning organization
+
+Who builds and owns this project. Affects how Claude reasons about resource constraints, process maturity, and acceptable risk.
+
+- _Organization type: startup, scale-up, enterprise, open-source project, internal team, agency, etc._
+- _Team size and structure_
+- _Any relevant compliance or governance context_
+
+### End users
+
+Who the product is built for — the people whose experience Claude should optimize toward.
+
+- _Who they are: role, technical level, context of use_
+- _What they care most about: speed, reliability, simplicity, power, etc._
+- _Any access or trust constraints (e.g. anonymous public users vs. authenticated employees)_
+
+### Operators & moderators
+
+Who manages, configures, and monitors the running system — distinct from end users. Claude should make their job easier through good observability, clear error messages, and safe defaults.
+
+- _Who operates the system: DevOps team, IT department, end users themselves, etc._
+- _Who moderates or governs content/access, if applicable_
+- _What tools or interfaces operators use to manage the system_
+
+---
+
 ## Tech stack
 
 The languages, frameworks, and deployment model this project uses. Claude uses this to suggest the right tools and patterns and to avoid recommending things that don't fit the stack.
