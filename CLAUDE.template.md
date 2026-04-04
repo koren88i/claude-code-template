@@ -63,6 +63,16 @@ The languages, frameworks, and deployment model this project uses. Claude uses t
 
 ---
 
+## Architecture
+
+A condensed map of the main components and how they connect. Claude uses this to understand where code should live and how parts interact. This is intentionally brief — for deeper structural detail, refer to `architecture.md` in the repo if it exists.
+
+```
+_TODO: ASCII diagram or bullet list of components and data flow_
+```
+
+---
+
 ## Commands
 
 The commands Claude should run to start, test, and verify the project. Always keep this up to date — if a command here doesn't work, flag it. Claude uses these to check its own work.
@@ -76,16 +86,6 @@ _TODO_
 
 # Verify a specific component
 _TODO_
-```
-
----
-
-## Architecture
-
-A condensed map of the main components and how they connect. Claude uses this to understand where code should live and how parts interact. This is intentionally brief — for deeper structural detail, refer to `architecture.md` in the repo if it exists.
-
-```
-_TODO: ASCII diagram or bullet list of components and data flow_
 ```
 
 ---
