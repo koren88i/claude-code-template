@@ -55,6 +55,8 @@ Look for:
 - inconsistent invariants,
 - state shared across tests or requests.
 
+**Trace the actual user flow, not a plausible-sounding code path.** Before committing to a root cause, verify it by observing what the system actually does — check logs, network traffic, or debug output from the real failing scenario. A fix for a bug the user isn't hitting is worse than no fix: it wastes time and leaves the real bug open.
+
 Explain the likely root cause in plain language.
 
 ### 4) Protect against recurrence
@@ -63,7 +65,7 @@ Explain the likely root cause in plain language.
 The test name and comments must explain **why the test exists** — what broke and what assumption it guards against. A reader who sees the test a year from now should understand the story without reading git blame.
 
 Bad: `test_post_query`
-Good: `test_post_query_supported` with a comment: "Real consumers send POST by default; the handler originally only accepted GET, breaking all external clients."
+Good: `test_post_query_supported` with a comment: "Grafana sends POST by default; mock originally only handled GET, breaking all Grafana panels."
 
 Preferred test type:
 - unit test,
@@ -82,23 +84,9 @@ If a test is truly not feasible, explain why and provide the next-best verificat
 Run the relevant checks and report:
 - failing test now passing,
 - nearby tests still passing,
-- manual repro now fixed if applicable.
+- **the user-facing bug is actually gone** — not just the test passing. A test can pass while the real bug remains if you tested the wrong thing. Go back to the original reproduction and confirm it works.
 
-### 7) Scan for the same bug elsewhere
-
-After fixing the specific instance, check whether the same mistake exists in other parts of the codebase:
-
-- **Exact duplication**: search for the same code pattern copy-pasted into other functions, modules, or services.
-- **Same class of mistake**: look for other places where the same flawed assumption was likely made — e.g., if the bug was "null not handled after an API call," scan other API call sites for the same missing guard.
-
-For each match found:
-- Fix it in the same commit if the change is small and safe.
-- Open a separate tracked issue or task if the fix requires more context or carries risk.
-- Note what was found (or that nothing was found) in the bug summary output.
-
-Do not skip this step on the grounds that "it's probably fine elsewhere." The conditions that caused the bug here often exist in similar code written by the same author at the same time.
-
-### 8) Refactor only after protection exists
+### 7) Refactor only after protection exists
 Once the bug is understood and guarded, optional cleanup is allowed:
 - improve naming,
 - extract helpers,
@@ -108,14 +96,14 @@ Once the bug is understood and guarded, optional cleanup is allowed:
 
 Do not hide the fix inside a broad refactor.
 
-### 9) Capture the lesson
+### 8) Capture the lesson
 If the bug reveals a reusable pattern, update the project's guidance:
 - add a short rule to `CLAUDE.md`, or
 - enrich this skill with a recurring pitfall.
 
 **Write the principle, not the fix.** The lesson should be the reasoning error or blind spot that caused the bug — not the specific code change that fixed it. Ask: "what thinking pattern, if applied earlier, would have prevented this class of bug?" The fix is already in the code; the lesson should change how you think next time.
 
-Bad: "The handler must support POST."
+Bad: "Mock backend must support POST for query endpoints."
 Good: "Mock APIs must implement the spec, not just the subset our own code exercises. Real consumers will use different parts of the contract."
 
 Examples of reusable lessons:
@@ -133,8 +121,7 @@ For a bug task, structure the response like this:
 4. Protection added  
 5. Fix applied  
 6. Verification  
-7. Related instances found (or confirmed none)  
-8. Lesson learned
+7. Lesson learned
 
 ## Guardrails
 - Do not claim a root cause without evidence.
