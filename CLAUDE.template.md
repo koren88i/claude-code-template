@@ -6,7 +6,7 @@ This file provides standing instructions to Claude Code when working in this rep
 
 ## Project mission
 
-<!-- Required. 2–5 sentences. What does this project do, who uses it, and what problem does it solve? -->
+<!-- What this project does, who it serves, and what problem it solves. Claude uses this to understand intent and make better judgment calls when requirements are ambiguous — read this before starting any task. -->
 
 _TODO: Describe what this project does and who it serves._
 
@@ -14,7 +14,7 @@ _TODO: Describe what this project does and who it serves._
 
 ## Tech stack
 
-<!-- List languages, frameworks, and deployment model. Keep it scannable. -->
+<!-- The languages, frameworks, and deployment model this project uses. Claude uses this to suggest the right tools and patterns and to avoid recommending things that don't fit the stack. -->
 
 - _Language / runtime_
 - _Web framework (if any)_
@@ -26,7 +26,7 @@ _TODO: Describe what this project does and who it serves._
 
 ## Commands
 
-<!-- The most common commands a developer needs. Keep this short and always up to date. -->
+<!-- The commands Claude should run to start, test, and verify the project. Always keep this up to date — if a command here doesn't work, flag it. Claude uses these to check its own work. -->
 
 ```bash
 # Run the project
@@ -43,7 +43,7 @@ _TODO_
 
 ## Architecture
 
-<!-- A short diagram or description of the main components and how they connect. -->
+<!-- A condensed map of the main components and how they connect. Claude uses this to understand where code should live and how parts interact. This is intentionally brief — for deeper structural detail, refer to `architecture.md` in the repo if it exists. -->
 
 ```
 _TODO: ASCII diagram or bullet list of components and data flow_
@@ -53,7 +53,7 @@ _TODO: ASCII diagram or bullet list of components and data flow_
 
 ## Design constraints
 
-<!-- Non-negotiables. Things Claude must not change or work around. -->
+<!-- Non-negotiables that Claude must not change or work around, regardless of how a request is phrased. These protect decisions that were made deliberately — treat them as hard stops. -->
 
 - _TODO: list hard constraints_
 
@@ -61,8 +61,7 @@ _TODO: ASCII diagram or bullet list of components and data flow_
 
 ## Project-specific anti-patterns and lessons learned
 
-<!--
-Add entries here when the project burns you. Each entry should be a short rule with a one-line "why" — not a description of the specific bug, but the reasoning pattern that would have prevented it. These are lessons this project has already paid for; don't make the future pay again.
+<!-- Lessons this project has already paid for. Each entry is a reasoning pattern that would have prevented a real failure — not a description of the incident, and not a general best practice. Claude should check this section before starting any implementation to avoid repeating known mistakes.
 
 Format:
 - **Rule**: what to do or avoid.
@@ -90,6 +89,8 @@ _TODO: Add project-specific lessons as they emerge._
 
 ## Engineering mindset
 
+<!-- The mental model Claude should reason from before planning or implementing anything non-trivial. These are not optional principles — they are the frame through which every design decision should be evaluated. -->
+
 Before planning or implementing any feature, think like a **senior engineer on the platform infra team of a 300-developer company**:
 
 - **Assume multi-tenancy from day one.** Your tool will run as multiple instances in shared systems, across environments you don't control. If a design only works for a single instance or a single operator, it's the wrong design.
@@ -106,6 +107,8 @@ Before planning or implementing any feature, think like a **senior engineer on t
 
 ## Default working style
 
+<!-- How Claude should approach work in this project when a request doesn't specify. Fall back to these when a request is ambiguous about approach or scope. -->
+
 - Optimize for simplicity, readability, and maintainability over cleverness.
 - Prefer small, understandable changes over large sweeping rewrites.
 - Follow existing repository patterns unless there is a strong reason to improve them.
@@ -115,6 +118,8 @@ Before planning or implementing any feature, think like a **senior engineer on t
 ---
 
 ## Coding standards
+
+<!-- What good code looks like in this project. Claude applies these when writing, reviewing, or modifying any code — not just new files. -->
 
 - Write code so a new team member can understand it quickly.
 - Use clear names for variables, functions, classes, and files.
@@ -128,6 +133,8 @@ Before planning or implementing any feature, think like a **senior engineer on t
 ---
 
 ## Hard-coding policy
+
+<!-- What Claude must never hardcode and the narrow exceptions where literals are acceptable. Apply this whenever writing code that contains constants, defaults, or configuration values. -->
 
 Avoid hard-coded:
 - business rules that may change,
@@ -147,6 +154,8 @@ If a literal is important, name it.
 
 ## Output expectations
 
+<!-- How Claude should communicate while working — what to state explicitly, what to flag honestly, what not to gloss over. This is the expected level of transparency in all responses. -->
+
 When implementing:
 - state assumptions,
 - mention the verification method,
@@ -159,6 +168,8 @@ When debugging:
 ---
 
 ## When to split work into smaller parts
+
+<!-- The conditions under which Claude must stop and break a task into smaller pieces before implementing. These are triggers, not suggestions — if any condition is true, splitting is required. -->
 
 Split the task before coding when one or more of these are true:
 - The request touches multiple subsystems.
@@ -176,6 +187,8 @@ When splitting, define:
 
 ## Step verification approach
 
+<!-- How Claude should verify each implementation step before moving to the next. No step is complete until it is independently verifiable. The verification method must be defined before writing code, and must leave a permanent artifact — not a throwaway check. -->
+
 Every implementation step must be independently verifiable before moving on. No throwaway test files — verification must leave a permanent artifact (test, script, or documented manual check).
 
 - Define the verification method before implementing.
@@ -185,6 +198,8 @@ Every implementation step must be independently verifiable before moving on. No 
 ---
 
 ## When following a plan
+
+<!-- The protocol Claude follows whenever work is structured against a plan of any kind — a file, ticket, shared doc, checklist, or agreed steps in the conversation. These rules apply regardless of where the plan lives. -->
 
 Whenever work is structured against a plan — whether that's a `PLAN.md`, a ticket, a shared doc, a checklist, or an agreed list of steps in the conversation — these rules apply:
 
@@ -198,6 +213,8 @@ Whenever work is structured against a plan — whether that's a `PLAN.md`, a tic
 
 ## Bug-handling default
 
+<!-- The required workflow for bugs and regressions. Claude must follow the steps in order — do not skip steps or reorder them. The sequence matters. Use the bug-investigation skill for the full playbook. -->
+
 For bugs and regressions, use the `bug-investigation` skill.
 
 Default flow:
@@ -207,12 +224,15 @@ Default flow:
 4. Add or identify a failing test when practical.
 5. Make the smallest safe fix.
 6. Run tests / verification.
-7. Refactor only after the bug is understood and protected.
-8. Capture a reusable lesson by updating `CLAUDE.md` or a skill when the lesson is likely to matter again.
+7. Scan for the same bug elsewhere in the codebase.
+8. Refactor only after the bug is understood and protected.
+9. Capture a reusable lesson by updating `CLAUDE.md` or a skill when the lesson is likely to matter again.
 
 ---
 
 ## Refactoring default
+
+<!-- Cleanup is only allowed when behavior is already protected by tests or another reliable verification method. Claude must not refactor first. Use the refactor-safely skill for the full playbook. -->
 
 For non-trivial cleanup, use the `refactor-safely` skill.
 Refactoring is allowed only when behavior is protected by tests or another reliable verification method.
@@ -220,6 +240,8 @@ Refactoring is allowed only when behavior is protected by tests or another relia
 ---
 
 ## Deliverable quality bar
+
+<!-- What "done" means in this project. Claude must not call a task complete unless it meets this bar. Use the deliverable-verification skill for a stronger checklist. -->
 
 A task is not complete unless the result is testable or otherwise verifiable.
 
@@ -235,12 +257,16 @@ Use the `deliverable-verification` skill when you need a stronger verification c
 
 ## Session management
 
+<!-- How to end a working session cleanly so the next one can resume without questions. Never close mid-step — complete or explicitly park the current sub-step first. Use the session-close skill for the full checklist. -->
+
 End a session after completing and verifying a full plan step — never mid-step.
 To close gracefully, use the `session-close` skill.
 
 ---
 
 ## Git conventions
+
+<!-- The commit format, branching model, and safety rules for this project. Claude follows these for all git operations — not just when explicitly asked. -->
 
 ### Commit messages
 
@@ -299,6 +325,8 @@ Push after each commit. Pushing is cheap insurance against losing work.
 
 ## Skills available
 
+<!-- Deep playbooks Claude loads and follows when the task type matches. These are not suggestions — they are the required workflow for their task type. When a task matches a skill, read it before starting. -->
+
 Skills are deep playbooks stored in `.claude/skills/<name>/SKILL.md`. Claude reads them on demand when the task type matches.
 
 To add a skill: create `.claude/skills/<name>/SKILL.md` and reference it here.
@@ -313,6 +341,8 @@ To add a skill: create `.claude/skills/<name>/SKILL.md` and reference it here.
 ---
 
 ## Skills to add (not yet written)
+
+<!-- Skills that are needed but not yet written. When a task type matches one of these, flag it and prompt the user to create the skill before improvising a workflow. -->
 
 The following skills are missing. Add them as the project matures or when the task type first appears in the work.
 
