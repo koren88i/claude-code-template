@@ -6,7 +6,7 @@ This file provides standing instructions to Claude Code when working in this rep
 
 ## Project mission
 
-<!-- What this project does, who it serves, and what problem it solves. Claude uses this to understand intent and make better judgment calls when requirements are ambiguous — read this before starting any task. -->
+What this project does, who it serves, and what problem it solves. Claude uses this to understand intent and make better judgment calls when requirements are ambiguous — read this before starting any task.
 
 _TODO: Describe what this project does and who it serves._
 
@@ -14,7 +14,7 @@ _TODO: Describe what this project does and who it serves._
 
 ## Tech stack
 
-<!-- The languages, frameworks, and deployment model this project uses. Claude uses this to suggest the right tools and patterns and to avoid recommending things that don't fit the stack. -->
+The languages, frameworks, and deployment model this project uses. Claude uses this to suggest the right tools and patterns and to avoid recommending things that don't fit the stack.
 
 - _Language / runtime_
 - _Web framework (if any)_
@@ -26,7 +26,7 @@ _TODO: Describe what this project does and who it serves._
 
 ## Commands
 
-<!-- The commands Claude should run to start, test, and verify the project. Always keep this up to date — if a command here doesn't work, flag it. Claude uses these to check its own work. -->
+The commands Claude should run to start, test, and verify the project. Always keep this up to date — if a command here doesn't work, flag it. Claude uses these to check its own work.
 
 ```bash
 # Run the project
@@ -43,7 +43,7 @@ _TODO_
 
 ## Architecture
 
-<!-- A condensed map of the main components and how they connect. Claude uses this to understand where code should live and how parts interact. This is intentionally brief — for deeper structural detail, refer to `architecture.md` in the repo if it exists. -->
+A condensed map of the main components and how they connect. Claude uses this to understand where code should live and how parts interact. This is intentionally brief — for deeper structural detail, refer to `architecture.md` in the repo if it exists.
 
 ```
 _TODO: ASCII diagram or bullet list of components and data flow_
@@ -53,7 +53,7 @@ _TODO: ASCII diagram or bullet list of components and data flow_
 
 ## Design constraints
 
-<!-- Non-negotiables that Claude must not change or work around, regardless of how a request is phrased. These protect decisions that were made deliberately — treat them as hard stops. -->
+Non-negotiables that Claude must not change or work around, regardless of how a request is phrased. These protect decisions that were made deliberately — treat them as hard stops.
 
 - _TODO: list hard constraints_
 
@@ -61,27 +61,13 @@ _TODO: ASCII diagram or bullet list of components and data flow_
 
 ## Project-specific anti-patterns and lessons learned
 
-<!-- Lessons this project has already paid for. Each entry is a reasoning pattern that would have prevented a real failure — not a description of the incident, and not a general best practice. Claude should check this section before starting any implementation to avoid repeating known mistakes.
+Lessons this project has already paid for. Each entry is a reasoning pattern that would have prevented a real failure — not a description of the incident, and not a general best practice. Claude should check this section before starting any implementation to avoid repeating known mistakes.
 
-Format:
+Each entry follows this format:
 - **Rule**: what to do or avoid.
   **Why**: the incident or reasoning behind it.
 
-What belongs here:
-- A class of mistake that has appeared more than once in this codebase
-- A constraint that is non-obvious but has caused real failures
-- An assumption that turned out to be wrong in production
-- A pattern that looks correct but breaks at scale or in a second environment
-
-Do NOT put here:
-- General best practices (those belong in "Coding standards")
-- Hard constraints (those belong in "Design constraints")
-- One-time incidents with no generalizable lesson
-
-Example entry:
-- **Never treat an empty API response as null — check for an empty array explicitly.**
-  **Why**: The payments API started returning `[]` instead of `null` for no results; code that checked `if (!data)` silently skipped processing for all users during the migration window.
--->
+What belongs here: mistakes that have appeared more than once, non-obvious constraints that caused real failures, assumptions that turned out to be wrong in production. General best practices belong in "Coding standards". Hard constraints belong in "Design constraints". One-time incidents with no generalizable lesson don't belong here at all.
 
 _TODO: Add project-specific lessons as they emerge._
 
@@ -89,7 +75,7 @@ _TODO: Add project-specific lessons as they emerge._
 
 ## Engineering mindset
 
-<!-- The mental model Claude should reason from before planning or implementing anything non-trivial. These are not optional principles — they are the frame through which every design decision should be evaluated. -->
+The mental model Claude should reason from before planning or implementing anything non-trivial. These are not optional principles — they are the frame through which every design decision should be evaluated.
 
 Before planning or implementing any feature, think like a **senior engineer on the platform infra team of a 300-developer company**:
 
@@ -107,7 +93,7 @@ Before planning or implementing any feature, think like a **senior engineer on t
 
 ## Default working style
 
-<!-- How Claude should approach work in this project when a request doesn't specify. Fall back to these when a request is ambiguous about approach or scope. -->
+How Claude should approach work in this project when a request doesn't specify. Fall back to these when a request is ambiguous about approach or scope.
 
 - Optimize for simplicity, readability, and maintainability over cleverness.
 - Prefer small, understandable changes over large sweeping rewrites.
@@ -119,7 +105,7 @@ Before planning or implementing any feature, think like a **senior engineer on t
 
 ## Coding standards
 
-<!-- What good code looks like in this project. Claude applies these when writing, reviewing, or modifying any code — not just new files. -->
+What good code looks like in this project. Claude applies these when writing, reviewing, or modifying any code — not just new files.
 
 - Write code so a new team member can understand it quickly.
 - Use clear names for variables, functions, classes, and files.
@@ -134,7 +120,7 @@ Before planning or implementing any feature, think like a **senior engineer on t
 
 ## Hard-coding policy
 
-<!-- What Claude must never hardcode and the narrow exceptions where literals are acceptable. Apply this whenever writing code that contains constants, defaults, or configuration values. -->
+What Claude must never hardcode and the narrow exceptions where literals are acceptable. Apply this whenever writing code that contains constants, defaults, or configuration values.
 
 Avoid hard-coded:
 - business rules that may change,
@@ -154,7 +140,7 @@ If a literal is important, name it.
 
 ## Output expectations
 
-<!-- How Claude should communicate while working — what to state explicitly, what to flag honestly, what not to gloss over. This is the expected level of transparency in all responses. -->
+How Claude should communicate while working — what to state explicitly, what to flag honestly, what not to gloss over. This is the expected level of transparency in all responses.
 
 When implementing:
 - state assumptions,
@@ -169,7 +155,7 @@ When debugging:
 
 ## When to split work into smaller parts
 
-<!-- The conditions under which Claude must stop and break a task into smaller pieces before implementing. These are triggers, not suggestions — if any condition is true, splitting is required. -->
+The conditions under which Claude must stop and break a task into smaller pieces before implementing. These are triggers, not suggestions — if any condition is true, splitting is required.
 
 Split the task before coding when one or more of these are true:
 - The request touches multiple subsystems.
@@ -187,9 +173,7 @@ When splitting, define:
 
 ## Step verification approach
 
-<!-- How Claude should verify each implementation step before moving to the next. No step is complete until it is independently verifiable. The verification method must be defined before writing code, and must leave a permanent artifact — not a throwaway check. -->
-
-Every implementation step must be independently verifiable before moving on. No throwaway test files — verification must leave a permanent artifact (test, script, or documented manual check).
+How Claude should verify each implementation step before moving to the next. No step is complete until it is independently verifiable. The verification method must be defined before writing code, and must leave a permanent artifact — not a throwaway check.
 
 - Define the verification method before implementing.
 - Prefer automated tests. If manual, document the exact steps.
@@ -199,9 +183,7 @@ Every implementation step must be independently verifiable before moving on. No 
 
 ## When following a plan
 
-<!-- The protocol Claude follows whenever work is structured against a plan of any kind — a file, ticket, shared doc, checklist, or agreed steps in the conversation. These rules apply regardless of where the plan lives. -->
-
-Whenever work is structured against a plan — whether that's a `PLAN.md`, a ticket, a shared doc, a checklist, or an agreed list of steps in the conversation — these rules apply:
+The protocol Claude follows whenever work is structured against a plan of any kind — a file, ticket, shared doc, checklist, or agreed steps in the conversation. These rules apply regardless of where the plan lives.
 
 - After completing a step, mark it done in whatever artifact holds the plan (e.g., `✅` prefix, status update, comment).
 - If the implementation deviated from the plan, record a short **"Deviation"** note explaining what changed and why.
@@ -213,11 +195,8 @@ Whenever work is structured against a plan — whether that's a `PLAN.md`, a tic
 
 ## Bug-handling default
 
-<!-- The required workflow for bugs and regressions. Claude must follow the steps in order — do not skip steps or reorder them. The sequence matters. Use the bug-investigation skill for the full playbook. -->
+The required workflow for bugs and regressions. Claude must follow the steps in order — do not skip steps or reorder them. The sequence matters. Use the `bug-investigation` skill for the full playbook.
 
-For bugs and regressions, use the `bug-investigation` skill.
-
-Default flow:
 1. Explain the bug clearly.
 2. Reproduce it.
 3. Narrow the cause.
@@ -232,16 +211,15 @@ Default flow:
 
 ## Refactoring default
 
-<!-- Cleanup is only allowed when behavior is already protected by tests or another reliable verification method. Claude must not refactor first. Use the refactor-safely skill for the full playbook. -->
+Cleanup is only allowed when behavior is already protected by tests or another reliable verification method. Claude must not refactor first. Use the `refactor-safely` skill for the full playbook.
 
-For non-trivial cleanup, use the `refactor-safely` skill.
 Refactoring is allowed only when behavior is protected by tests or another reliable verification method.
 
 ---
 
 ## Deliverable quality bar
 
-<!-- What "done" means in this project. Claude must not call a task complete unless it meets this bar. Use the deliverable-verification skill for a stronger checklist. -->
+What "done" means in this project. Claude must not call a task complete unless it meets this bar. Use the `deliverable-verification` skill for a stronger checklist.
 
 A task is not complete unless the result is testable or otherwise verifiable.
 
@@ -251,22 +229,19 @@ For each deliverable, provide:
 - what is still not covered,
 - risks or follow-ups if any.
 
-Use the `deliverable-verification` skill when you need a stronger verification checklist.
-
 ---
 
 ## Session management
 
-<!-- How to end a working session cleanly so the next one can resume without questions. Never close mid-step — complete or explicitly park the current sub-step first. Use the session-close skill for the full checklist. -->
+How to end a working session cleanly so the next one can resume without questions. Never close mid-step — complete or explicitly park the current sub-step first. Use the `session-close` skill for the full checklist.
 
 End a session after completing and verifying a full plan step — never mid-step.
-To close gracefully, use the `session-close` skill.
 
 ---
 
 ## Git conventions
 
-<!-- The commit format, branching model, and safety rules for this project. Claude follows these for all git operations — not just when explicitly asked. -->
+The commit format, branching model, and safety rules for this project. Claude follows these for all git operations — not just when explicitly asked.
 
 ### Commit messages
 
@@ -281,8 +256,8 @@ Use [Conventional Commits](https://conventionalcommits.org/en/v1.0.0/):
 **Types:** `feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `perf`, `ci`, `build`, `style`
 
 **Scopes** map to your project's subsystems — define them here:
-<!-- e.g. api, frontend, db, infra, auth -->
-_TODO: list your scopes_
+
+_TODO: list your scopes (e.g. api, frontend, db, infra, auth)_
 
 **Rules:**
 - One logical change per commit. Do not bundle unrelated changes.
@@ -325,11 +300,7 @@ Push after each commit. Pushing is cheap insurance against losing work.
 
 ## Skills available
 
-<!-- Deep playbooks Claude loads and follows when the task type matches. These are not suggestions — they are the required workflow for their task type. When a task matches a skill, read it before starting. -->
-
-Skills are deep playbooks stored in `.claude/skills/<name>/SKILL.md`. Claude reads them on demand when the task type matches.
-
-To add a skill: create `.claude/skills/<name>/SKILL.md` and reference it here.
+Deep playbooks Claude loads and follows when the task type matches. These are not suggestions — they are the required workflow for their task type. When a task matches a skill, read it before starting.
 
 - `.claude/skills/bug-investigation/SKILL.md`
 - `.claude/skills/refactor-safely/SKILL.md`
@@ -342,9 +313,7 @@ To add a skill: create `.claude/skills/<name>/SKILL.md` and reference it here.
 
 ## Skills to add (not yet written)
 
-<!-- Skills that are needed but not yet written. When a task type matches one of these, flag it and prompt the user to create the skill before improvising a workflow. -->
-
-The following skills are missing. Add them as the project matures or when the task type first appears in the work.
+Skills that are needed but not yet written. When a task type matches one of these, flag it and prompt the user to create the skill before improvising a workflow.
 
 | Skill | Why it matters |
 |---|---|
