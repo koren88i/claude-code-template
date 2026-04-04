@@ -308,6 +308,7 @@ To add a skill: create `.claude/skills/<name>/SKILL.md` and reference it here.
 - `.claude/skills/deliverable-verification/SKILL.md`
 - `.claude/skills/docker/SKILL.md`
 - `.claude/skills/session-close/SKILL.md`
+- `.claude/skills/template-sync/SKILL.md`
 
 ---
 
