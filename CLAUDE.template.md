@@ -318,7 +318,6 @@ Skills that are needed but not yet written. When a task type matches one of thes
 | Skill | Why it matters |
 |---|---|
 | `testing` | Without a testing skill, Claude makes inconsistent decisions about what to test, when to mock vs. use real dependencies, and what fixture strategy to use. A skill here defines the project's testing philosophy so those choices are made once, not per-PR. |
-| `db-migrations` | Migrations are the highest-risk operation in most backends — often irreversible, capable of locking tables, and required to be backward-compatible during rolling deploys. A skill enforces the discipline of always writing a rollback path, validating on a copy, and staging before prod. |
 | `ci-cd` | Defines what a passing pipeline actually means for this project, what must never be merged on a red build, and how to debug CI failures. Without it, Claude has no way to reason about whether a change is truly "done" in the full deployment sense. |
 | `security-review` | Security mistakes are expensive and often invisible until exploited. A skill that triggers on auth-adjacent code, input handling, and external API calls catches injection risks, missing auth checks, and secret leakage before they ship. |
 | `performance-investigation` | Distinguishes performance bugs from functional bugs — how to profile, what baseline to measure against, what "fast enough" means for this project, and how to avoid optimizing the wrong thing. Without it, Claude has no framework for answering "is this too slow?" |
