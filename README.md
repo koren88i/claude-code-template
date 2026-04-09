@@ -12,11 +12,11 @@ It includes all the standard headings that are worth having, along with a few th
 
 Here are some of the “maybe unique” aspects:
 
-Background about the environment in which the project will live (e.g., on-prem), who the target audience is, and who will maintain it.
-Thinking and working like an “engineer” — e.g., “what happens when you add another instance…”.
-The whole part about forcing it to break down large tasks into smaller steps, and working with a plan that preserves state between runs and updates the .md, etc.
-The debugging skill helps a lot (not jumping straight to writing code — first explain the bug, then create a failing test, and only then fix it, and extract insights into the .md).
-Refactoring skills also help — not just “here, I wrote it” 🙂
+- Background about the environment in which the project will live (e.g., on-prem), who the target audience is, and who will maintain it.
+- Thinking and working like an “engineer” — e.g., “what happens when you add another instance…”.
+- The whole part about forcing it to break down large tasks into smaller steps, and working with a plan that preserves state between runs and updates the .md, etc.
+- The debugging skill helps a lot (not jumping straight to writing code — first explain the bug, then create a failing test, and only then fix it, and extract insights into the .md).
+- Refactoring skills also help — not just “here, I wrote it” 🙂
 
 
 ## Skills included
