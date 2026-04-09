@@ -2,6 +2,23 @@
 
 A `CLAUDE.md` template and skill library for [Claude Code](https://claude.ai/code) projects. Copy `CLAUDE.template.md` to your repo root as `CLAUDE.md`, copy `skills/` to `.claude/skills/`, fill in the project-specific sections, and Claude Code will pick it up automatically at the start of every session.
 
+## What Is This
+
+Wearing my “mid-level developer” hat, I’m sharing my claude.md with you.
+
+It’s the result of 6–7 small projects I ran and learned from, plus some research mode work and my own reading of various posts on the topic.
+
+It includes all the standard headings that are worth having, along with a few things that helped me (some only in hindsight) make the project development smoother and better aligned with what matters to me.
+
+Here are some of the “maybe unique” aspects:
+
+Background about the environment in which the project will live (e.g., on-prem), who the target audience is, and who will maintain it.
+Thinking and working like an “engineer” — e.g., “what happens when you add another instance…”.
+The whole part about forcing it to break down large tasks into smaller steps, and working with a plan that preserves state between runs and updates the .md, etc.
+The debugging skill helps a lot (not jumping straight to writing code — first explain the bug, then create a failing test, and only then fix it, and extract insights into the .md).
+Refactoring skills also help — not just “here, I wrote it” 🙂
+
+
 ## Skills included
 
 | Skill | Purpose |
