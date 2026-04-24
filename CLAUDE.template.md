@@ -16,6 +16,8 @@ _TODO: Describe what this project does and who it serves._
 
 Who this project serves, where it runs, and who operates it. Use this to make the right tradeoffs — a regulated enterprise SaaS has different defaults than an internal dev tool or an open-source CLI. Read this alongside the project mission before making any design or UX decision.
 
+Assume this project operates in a shared, production-like environment; the details below refine that context rather than redefine it.
+
 ### Environment
 
 Where the project lives and at what scale it operates. Affects decisions around multi-tenancy, data isolation, latency, availability, and compliance.
@@ -130,15 +132,47 @@ Before planning or implementing any feature, think like a **senior engineer on t
 
 ---
 
+## Think before coding
+
+Slow down before editing when the task is ambiguous, unfamiliar, risky, or likely to touch multiple files. The goal is to avoid solving the wrong problem confidently.
+
+- Do not silently pick an interpretation. State assumptions explicitly.
+- If multiple plausible interpretations exist, present them and resolve the difference before coding.
+- If something is unclear, name what is unclear instead of guessing.
+- Explore first, then plan, then code when the problem is unfamiliar, cross-cutting, or hard to verify.
+- Push back when a simpler approach fits the goal or the requested path conflicts with constraints.
+- For larger features, clarify success criteria, edge cases, and tradeoffs before implementation.
+- If the diff is obvious and can be described in one sentence, do it directly instead of adding planning overhead.
+
+---
+
 ## Default working style
 
 How to approach work in this project when a request doesn't specify. Fall back to these when a request is ambiguous about approach or scope.
 
 - Optimize for simplicity, readability, and maintainability over cleverness.
+- Prefer the fewest moving parts that fully solve the current problem.
+- Do not add abstraction, indirection, or configuration "for flexibility" unless there is a present need.
+- If two approaches work, prefer the one that is easier to explain, test, and remove later.
+- Reuse existing repository patterns before inventing a new one.
 - Prefer small, understandable changes over large sweeping rewrites.
 - Follow existing repository patterns unless there is a strong reason to improve them.
 - When a request is large, risky, or vague, break it into smaller deliverable slices before implementing.
 - Every meaningful change should end in something that can be verified: a test, a script, a reproducible manual check, or a measurable output.
+
+---
+
+## Execution and verification
+
+Implement toward a clear, verifiable outcome, not just code that seems plausible. Define success and a verification method before writing non-trivial code, and do not call a task done until the relevant checks have run and any remaining gaps are stated honestly.
+
+- Define what success looks like before implementation.
+- Translate requests into observable checks: a test, output, behavior change, screenshot, command result, or measurable artifact.
+- For bugs, reproduce the issue before fixing it. For features, define the user-visible behavior and how it will be verified before implementation.
+- If a task is too vague to verify, narrow it or create a verification method first.
+- Prefer automated tests. If manual verification is necessary, document the exact steps.
+- Verify each meaningful step in isolation when possible, not only as part of the final whole.
+- For each deliverable, provide: what changed, how to verify it, what is still not covered, and any risks or follow-ups.
 
 ---
 
@@ -192,9 +226,9 @@ When debugging:
 
 ---
 
-## When to split work into smaller parts
+## Planning and slicing work
 
-Stop and break the task into smaller pieces before implementing if any of these are true — they are triggers, not suggestions:
+Break work into smaller parts before implementing if any of these are true — these are triggers, not suggestions:
 
 - The request touches multiple subsystems.
 - The acceptance criteria are unclear.
@@ -207,21 +241,7 @@ When splitting, define:
 2. how it will be verified,
 3. what remains for the next slice.
 
----
-
-## Step verification approach
-
-Verify each implementation step before moving to the next. No step is complete until it is independently verifiable. Define the verification method before writing code — it must leave a permanent artifact, not a throwaway check.
-
-- Define the verification method before implementing.
-- Prefer automated tests. If manual, document the exact steps.
-- Each step should be verifiable in isolation, not only as part of the whole.
-
----
-
-## When following a plan
-
-Follow this protocol whenever work is structured against a plan of any kind — a file, ticket, shared doc, checklist, or agreed steps in the conversation. These rules apply regardless of where the plan lives.
+When following a plan of any kind — a file, ticket, shared doc, checklist, or agreed steps in the conversation — follow this protocol regardless of where the plan lives:
 
 - After completing a step, mark it done in whatever artifact holds the plan (e.g., `✅` prefix, status update, comment).
 - If the implementation deviated from the plan, record a short **"Deviation"** note explaining what changed and why.
@@ -250,20 +270,6 @@ The required workflow for bugs and regressions. Follow the steps in order — do
 ## Refactoring default
 
 Cleanup is only allowed when behavior is already protected by tests or another reliable verification method. Do not refactor first. Use the `refactor-safely` skill for the full playbook.
-
----
-
-## Deliverable quality bar
-
-What "done" means in this project. Do not call a task complete unless it meets this bar. Use the `deliverable-verification` skill for a stronger checklist.
-
-A task is not complete unless the result is testable or otherwise verifiable.
-
-For each deliverable, provide:
-- what changed,
-- how to verify it,
-- what is still not covered,
-- risks or follow-ups if any.
 
 ---
 
