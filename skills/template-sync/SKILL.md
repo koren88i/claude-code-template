@@ -1,17 +1,46 @@
 ---
 name: template-sync
-description: Use when syncing a project's `CLAUDE.md` or `.claude/skills/` with the upstream `claude-code-template` repo, either by pulling template updates into a project or contributing general improvements back upstream.
+description: Use when a real project's `CLAUDE.md` or `.claude/skills/` has improved and you want to promote the generalizable parts back into the `claude-code-template` repo. Compare if needed, strip project-specific details, and apply the improvement in the separate template repository.
 ---
 
 # Template Sync
 
 ## Goal
-Keep a project's skills and CLAUDE.md aligned with the upstream template, and contribute improvements back when they are generalizable.
+Promote reusable improvements discovered in a real project back into the `claude-code-template` repo.
 
 ## Use this when
-- The template repo has updated or added skills you want to pull into this project
-- You've improved a skill or CLAUDE.md section in this project and want to contribute it back
-- A skill listed under "Skills to add" in CLAUDE.md has now been written and should be pushed upstream
+- A real project's `CLAUDE.md` section turned out better than the template version and should be generalized upstream
+- A local skill in `.claude/skills/` was improved in a way that would help other projects too
+- A skill listed under `Skills to add` in a real project has now been written and belongs in the template repo
+- The user asks to contribute, upstream, promote, or carry an improvement back into `claude-code-template`
+
+---
+
+## Real-world setup
+
+Treat this as a two-repo workflow:
+
+- **Repo 1: the real project** where the improvement was discovered
+- **Repo 2: the template repo** (`claude-code-template`) where the generalized improvement should land
+
+Typical local layout:
+
+```text
+work/
+  my-real-project/
+  claude-code-template/
+```
+
+Preferred workflow:
+- Inspect and learn in the real project
+- Apply the cleaned-up improvement in the separate local clone of `claude-code-template`
+- Commit and push from the template repo, not from the project repo
+
+Optional comparison helper:
+- Add the template repo as a read-only remote inside the project repo if you only need to inspect the current upstream file
+- Do not treat that remote as the place to develop or push template changes
+
+If the template repo is not available locally, ask the user for its path or prepare a patch the user can apply there later.
 
 ---
 
@@ -19,75 +48,38 @@ Keep a project's skills and CLAUDE.md aligned with the upstream template, and co
 
 The template repo and a project that uses it store files in different locations:
 
-| Template repo | Project using the template |
+| Template repo | Real project |
 |---|---|
 | `CLAUDE.template.md` | `CLAUDE.md` (project root) |
 | `skills/<name>/SKILL.md` | `.claude/skills/<name>/SKILL.md` |
 
-Keep this mapping in mind when copying in either direction.
+Use this mapping when copying a generalized improvement from the real project back into the template repo.
 
 ---
 
-## Direction 1: Pull updates from template → this project
+## Workflow
 
-Use this when the template repo has improvements you want to bring in.
-
-### 1) Add the template as a remote (once per project)
-```bash
-git remote add template https://github.com/koren88i/claude-code-template.git
-git fetch template
-```
-
-### 2) See what has changed
-```bash
-# Compare skills
-git diff HEAD template/master -- skills/
-
-# Compare the base template file
-git diff HEAD template/master -- CLAUDE.template.md
-```
-
-### 3) Pull in specific files selectively
-Never blindly merge — the project has customizations that must be preserved.
-
-To pull a specific skill:
-```bash
-git checkout template/master -- skills/<name>/SKILL.md
-# then move it to the correct project path:
-# cp skills/<name>/SKILL.md .claude/skills/<name>/SKILL.md
-```
-
-To review CLAUDE.template.md changes and apply only the relevant parts manually:
-```bash
-git show template/master:CLAUDE.template.md
-```
-Compare section by section. Copy improvements into `CLAUDE.md` without overwriting project-specific content (mission, tech stack, constraints, anti-patterns, git scopes).
-
-### 4) Review before committing
-- Confirm no project-specific content was overwritten
-- Confirm the updated skill still makes sense in this project's context
-- Run any relevant verification if the skill change affects active workflows
-
-### 5) Commit
-```bash
-git add .claude/skills/<name>/SKILL.md
-git commit -m "chore: pull <name> skill update from upstream template"
-```
-
----
-
-## Direction 2: Contribute improvements from this project → template
-
-Use this when you've refined a skill or CLAUDE.md section and the improvement is generalizable — not specific to this project.
-
-### 1) Identify what is generalizable
+### 1) Identify the candidate improvement in the real project
 Ask:
 - Does this change depend on project-specific knowledge (internal hostnames, domain rules, team conventions)?
 - Would it make the template better for any project, or just this one?
 
 If the answer is "any project" — it belongs in the template. If it's project-specific — it belongs only in `CLAUDE.md` or the local skill copy.
 
-### 2) Strip project-specific content
+### 2) Compare against the current template version when helpful
+If the template repo is cloned locally, inspect the target file there directly.
+
+If you only need a read-only comparison from inside the project repo, you may add and fetch a template remote:
+```bash
+git remote add template https://github.com/koren88i/claude-code-template.git
+git fetch template
+git show template/master:CLAUDE.template.md
+git show template/master:skills/<name>/SKILL.md
+```
+
+Use this for reference only. The actual template change should still be made in the separate template repo.
+
+### 3) Strip project-specific content
 Before contributing back, remove or replace:
 - Internal service names, hostnames, URLs
 - Business domain language specific to this project
@@ -95,33 +87,44 @@ Before contributing back, remove or replace:
 
 Replace with generic equivalents or placeholder examples.
 
-### 3) Apply the change to the template repo
+### 4) Apply the change in the template repo
+Open the separate local clone of `claude-code-template` and edit the matching file there.
 
-If you have write access to the template repo:
+Examples:
+- project `CLAUDE.md` -> template `CLAUDE.template.md`
+- project `.claude/skills/<name>/SKILL.md` -> template `skills/<name>/SKILL.md`
+
+Typical flow:
 ```bash
 cd /path/to/claude-code-template
-git checkout -b improve/<skill-name>
-# copy the cleaned-up file into the template's skills/ folder
-cp /path/to/project/.claude/skills/<name>/SKILL.md skills/<name>/SKILL.md
-git add skills/<name>/SKILL.md
-git commit -m "feat(skills): <description of improvement>"
-git push origin improve/<skill-name>
-# open a PR or merge directly if appropriate
+git checkout -b improve/<topic>
+# apply the cleaned-up improvement
+git add CLAUDE.template.md skills/<name>/SKILL.md
+git commit -m "feat(template): <description of improvement>"
+git push origin improve/<topic>
 ```
 
 If you do not have write access:
-- Fork the template repo, apply the change, and open a pull request.
-- In the PR body: describe what the improvement is, what prompted it, and what was stripped to make it generic.
+- Fork the template repo and open a pull request, or
+- prepare a patch for the maintainer to apply in the template repo
 
-### 4) Update the template's CLAUDE.template.md if needed
+In the PR or patch notes, describe:
+- what improved,
+- what prompted the change in the real project,
+- what was stripped or generalized before upstreaming.
+
+### 5) Update template indexes when needed
 If the improvement affects the skills index or adds a new skill, also update:
-- The `## Skills available` section in `CLAUDE.template.md`
-- Remove the skill from `## Skills to add` if it was listed there
+- the `## Skills available` section in `CLAUDE.template.md`
+- remove the skill from `## Skills to add` if it was listed there
+- the skills table in `README.md` when the change is user-visible
 
 ---
 
 ## Guardrails
-- Never overwrite `CLAUDE.md` wholesale from `CLAUDE.template.md` — the project sections (mission, stack, constraints, anti-patterns) will be lost.
+- Never interpret this skill as "pull template changes into the project."
+- Never push from the project repo directly into the template repo.
 - Never contribute project-specific content to the template — sanitize first.
-- Pull selectively by file, not by branch merge.
+- Never overwrite the template with a raw project file without reviewing and cleaning it first.
+- Use a template remote only for read-only comparison; use a separate clone for real template edits whenever possible.
 - When in doubt about whether something is generalizable, leave it in the project and note it for later review.

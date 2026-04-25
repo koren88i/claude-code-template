@@ -29,7 +29,7 @@ Here are some of the “maybe unique” aspects:
 | `deliverable-verification` | Checklist for shipping: scope, verification path, evidence, known gaps |
 | `docker` | Docker and Compose best practices: ports, resource limits, health checks, Dockerfile rules |
 | `session-close` | End-of-session ritual: mark progress, capture lessons, clean git state |
-| `template-sync` | Pull skill updates from this repo into a project, or contribute improvements back |
+| `template-sync` | Promote reusable `CLAUDE.md` and skill improvements from a real project back into this template repo |
 
 ## Possible future work
 
