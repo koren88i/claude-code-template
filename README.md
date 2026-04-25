@@ -1,6 +1,6 @@
 # claude-code-template
 
-A `CLAUDE.md` template and skill library for [Claude Code](https://claude.ai/code) projects. Copy `CLAUDE.template.md` to your repo root as `CLAUDE.md`, copy `skills/` to `.claude/skills/`, fill in the project-specific sections, and Claude Code will pick it up automatically at the start of every session.
+A `CLAUDE.md` template and skill library for [Claude Code](https://claude.ai/code) projects. Copy `CLAUDE.template.md` to your repo root as `CLAUDE.md`, copy `skills/` to `.claude/skills/`, fill in the project-specific sections, and Claude Code will pick it up automatically at the start of every session. For brand-new repos, the `project-intake` skill can bootstrap the critical sections first instead of forcing you to complete the whole file up front.
 
 ## What Is This
 
@@ -23,6 +23,7 @@ Here are some of the “maybe unique” aspects:
 
 | Skill | Purpose |
 |---|---|
+| `project-intake` | Bootstrap a new project's `CLAUDE.md`: inspect the repo first, ask only the highest-value questions, and make the critical sections actionable without blocking on every TODO |
 | `bug-investigation` | Disciplined bug workflow: understand → reproduce → isolate → protect → fix → scan for related instances → verify → capture lesson |
 | `refactor-safely` | Cleanup only when behavior is already protected by tests |
 | `deliverable-verification` | Checklist for shipping: scope, verification path, evidence, known gaps |

@@ -4,6 +4,21 @@ This file provides standing instructions to Claude Code when working in this rep
 
 ---
 
+## New project intake
+
+If this repository is new, or if the critical project sections are still mostly placeholders, use `.claude/skills/project-intake/SKILL.md` before substantial implementation.
+
+The goal is to make these sections actionable early:
+- `Project mission`
+- `Deployment context & audience`
+- `Tech stack`
+- `Commands`
+- `Design constraints`
+
+Do not block on experience-based sections becoming complete before real work begins.
+
+---
+
 ## Project mission
 
 What this project does, who it serves, and what problem it solves. Use this to understand intent and make better judgment calls when requirements are ambiguous — read this before starting any task.
@@ -97,6 +112,26 @@ _TODO_
 Non-negotiables — do not change or work around these, regardless of how a request is phrased. These protect decisions that were made deliberately — treat them as hard stops.
 
 - _TODO: list hard constraints_
+
+---
+
+## Progressive onboarding
+
+Do not block implementation just because every section of `CLAUDE.md` is not complete.
+
+Critical sections must be made actionable early:
+- `Project mission`
+- `Deployment context & audience`
+- `Tech stack`
+- `Commands`
+- `Design constraints`
+
+Experience-based sections may remain partial and should be updated as the project evolves:
+- `Architecture`
+- `Project-specific anti-patterns and lessons learned`
+- `Skills to add`
+
+When a session reveals durable project knowledge, update `CLAUDE.md` before closing the session.
 
 ---
 
@@ -344,6 +379,7 @@ Push after each commit. Pushing is cheap insurance against losing work.
 
 Deep playbooks to load and follow when the task type matches. These are not suggestions — they are the required workflow for their task type. When a task matches a skill, read it before starting.
 
+- `.claude/skills/project-intake/SKILL.md`
 - `.claude/skills/bug-investigation/SKILL.md`
 - `.claude/skills/refactor-safely/SKILL.md`
 - `.claude/skills/deliverable-verification/SKILL.md`

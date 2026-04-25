@@ -1,6 +1,6 @@
 ---
 name: template-sync
-description: Sync skills and CLAUDE.md improvements between this project and the upstream claude-code-template repo — either pulling updates in, or contributing improvements back.
+description: Use when syncing a project's `CLAUDE.md` or `.claude/skills/` with the upstream `claude-code-template` repo, either by pulling template updates into a project or contributing general improvements back upstream.
 ---
 
 # Template Sync
