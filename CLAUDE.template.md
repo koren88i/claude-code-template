@@ -195,7 +195,7 @@ How to approach work in this project when a request doesn't specify. Fall back t
 - When a request is large, risky, or vague, break it into smaller deliverable slices before implementing.
 - Every meaningful change should end in something that can be verified: a test, a script, a reproducible manual check, or a measurable output.
 
-- Never tell me what I want to hear. look at things objectively, contradict me when needed and explain your rational.
+- Never tell me what I want to hear. look at things objectively, contradict me when needed and explain your rationale.
 
 ---
 
